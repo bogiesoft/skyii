@@ -35,7 +35,7 @@ The minimum requirement by this project template is that your Web server support
 
 You can install this template with below command in your terminal:
 
-    git clone https://github.com/foqat/yati.git
+    git clone https://github.com/foqat/skyii.git
 
 
 ## Install from an Archive File
@@ -68,7 +68,7 @@ After you have downloaded or ran git clone, you have to follow below steps to in
 
 5. Apply migrations with console command `yii migrate`.
 
-6. If your project is installed in a root directory then remove /yati from `enviroments/dev/.htaccess`. If it is in a subfolder then replace /yati with your folder name.
+6. If your project is installed in a root directory then remove /skyii from `enviroments/dev/.htaccess`. If it is in a subfolder then replace /skyii with your folder name.
 
 7. Set a cookie validation key in frontend and backend main-local.php. If it is already set then make sure to change it.
 
@@ -88,7 +88,7 @@ To login into the application, you need to first sign up, with any of your email
 Comparison
 ----------
 
-The following table compares the difference among the advanced template, basic template and YATI:
+The following table compares the difference among the basic template, advanced template, Skyii Lite and Skyii Full:
 
 
 | Feature  |  Basic  |  Advanced |  Skyii Lite |  Skyii Full |
@@ -136,7 +136,7 @@ Troubleshooting
 1. My Composer Update is not working.
 
     Make sure to run this in your terminal-
-composer global require "fxp/composer-asset-plugin:^1.3.1"
+    composer global require "fxp/composer-asset-plugin:^1.3.1"
 
 2. I am still having issue with setting it up.
 
