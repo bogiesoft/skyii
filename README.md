@@ -91,42 +91,44 @@ Comparison
 The following table compares the difference among the advanced template, basic template and YATI:
 
 
-| Feature  |  Basic  |  Advanced |  YATI |
-|---|:---:|:---:|:---:|
-| Project structure | ✓ | ✓ | ✓ |
-| Site controller | ✓ | ✓ | ✓ |
-| User login/logout | ✓ | ✓ | ✓ |
-| Forms  | ✓ | ✓ | ✓ |
-| DB connection  | ✓ | ✓ | ✓ |
-| Console command  | ✓ | ✓ | ✓ |
-| Asset bundle  | ✓ | ✓ | ✓ |
-| Codeception tests  | ✓ | ✓ | ✓ |
-| Twitter Bootstrap  | ✓ | ✓ | ✓ |
-| Front-end and back-end apps  |    | ✓ | ✓ |
-| Ready to use User model |    | ✓ | ✓ |
-| User signup and password restore  |     | ✓ | ✓ |
-| Pretty Url |     |     | ✓ |
-| REST API |     |     | ✓ |
-| API versioning ready |     |     | ✓ |
-| XML or JSON response formatting |     |     | ✓ |
-| Custom error handling |     |     | ✓ |
-| User module with RBAC |     |     | ✓ |
-
+| Feature  |  Basic  |  Advanced |  Skyii Lite |  Skyii Full |
+|---|:---:|:---:|:---:|:---:|
+| Project structure | ✓ | ✓ | ✓ | ✓ |
+| Site controller | ✓ | ✓ | ✓ | ✓ |
+| User login/logout | ✓ | ✓ | ✓ | ✓ |
+| Forms  | ✓ | ✓ | ✓ | ✓ |
+| DB connection  | ✓ | ✓ | ✓ | ✓ |
+| Console command  | ✓ | ✓ | ✓ | ✓ |
+| Asset bundle  | ✓ | ✓ | ✓ | ✓ |
+| Codeception tests  | ✓ | ✓ | ✓ | ✓ |
+| Twitter Bootstrap  | ✓ | ✓ | ✓ | ✓ |
+| Front-end and back-end apps  |    | ✓ | ✓ | ✓ |
+| Ready to use User model |    | ✓ | ✓ | ✓ |
+| User signup and password restore  |     | ✓ | ✓ | ✓ |
+| Pretty Url |     |     | ✓ | ✓ |
+| REST API |     |     | ✓ | ✓ |
+| API versioning ready |     |     | ✓ | ✓ |
+| XML or JSON response formatting |     |     | ✓ | ✓ |
+| Custom error handling |     |     | ✓ | ✓ |
+| User module with RBAC |     |     | ✓ | ✓ |
+| Admin LTE integration |     |     |   | ✓ |
 
 Current Branches
 ----------------
 
-master - Always use this branch for your work.
+lite - Lite version includes everything except the admin lte template setup.
 
-dev-master - Should not be used as it may have broken changes
+full - Full version includes everything from lite including Admin LTE template setup and ready to use.
+
+master - Not be used as all the dirty work is done here before merging in other main branches.
 
 
 Contributors
 ------------
 
-Pankaj Sanam
+[Pankaj Sanam](https://github.com/PankajSanam)
 
-Rajat Jain
+[Rajat Jain](https://github.com/rajatjain4061)
 
 Troubleshooting
 ---------------
