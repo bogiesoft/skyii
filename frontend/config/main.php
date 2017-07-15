@@ -17,6 +17,26 @@ return [
             'class' => 'common\components\Request',
             'web'=> '/frontend/web'
         ],
+        'assetManager' => [
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'js' => [],
+                    'css' => [],
+                ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'js' => [],
+                    'css' => [],
+                ],
+                'yii\jui\JuiAsset' => [
+                    'js' => [],
+                    'css' => [],
+                ],
+                'yii\bootstrap\BootstrapAsset' => [
+                    'js' => [],
+                    'css' => [],
+                ],
+            ],
+        ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
@@ -32,13 +52,11 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'enableStrictParsing' => true,
             'rules' => [
                 '' => 'site/index',
                 '<action:(signup|login|logout|about|contact)>' => 'site/<action>',
-                //'<controller:\w+>' => '<controller>/index',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
-                '<module:\w+>/<controller:\w+>/<id:\d+>' => '<module>/<controller>/view',
-                '<module:\w+>/<controller:\w+>/<action:\w+>/<id>' => '<module>/<controller>/<action>',
             ],
         ],
     ],

@@ -18,15 +18,19 @@ use modules\user\components\Configs;
  * @property string $password_reset_token
  * @property string $email
  * @property string $auth_key
+ * @property string $phone
+ * @property string $dob
+ * @property string $anniversary_date
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
  *
- * @property UserProfile $profile
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    public $password;
+
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 10;
 
@@ -38,9 +42,6 @@ class User extends ActiveRecord implements IdentityInterface
         return Configs::instance()->userTable;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function behaviors()
     {
         return [
@@ -49,14 +50,92 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @inheritdoc
+     * @return array
      */
     public function rules()
     {
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE]],
+
+            ['username', 'filter', 'filter' => 'trim'],
+            ['username', 'required'],
+            ['username', 'unique', 'targetClass' => 'modules\user\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['username', 'match', 'not' => true, 'pattern' => '/[^0-9a-zA-Z_-]/', 'message' => 'Invalid characters in username.'],
+
+            ['email', 'filter', 'filter' => 'trim'],
+            ['email', 'required'],
+            ['email', 'email'],
+            ['email', 'unique', 'targetClass' => 'modules\user\models\User', 'message' => 'This email has been taken.'],
+
+            ['password', 'required'],
+            ['password', 'string', 'min' => 6],
+
+            ['phone', 'filter', 'filter' => 'trim'],
+
+            ['dob', 'filter', 'filter' => 'trim'],
+
+            ['anniversary_date', 'filter', 'filter' => 'trim'],
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+
+        if ($insert) {
+            $this->setPassword($this->password);
+            $this->generateAuthKey();
+            $this->setDob($this->dob);
+            $this->setAnniversaryDate($this->anniversary_date);
+        }
+
+        return true;
+    }
+
+    /**
+     * Generates password hash from password and sets it to the model
+     *
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+    }
+
+    /**
+     * @param $dob
+     */
+    public function setDob($dob)
+    {
+        $this->dob = Yii::$app->formatter->asDate($dob, 'yyyy-MM-dd');
+    }
+
+    /**
+     * @param $anniversary_date
+     */
+    public function setAnniversaryDate($anniversary_date)
+    {
+        $this->anniversary_date = Yii::$app->formatter->asDate($anniversary_date, 'yyyy-MM-dd');
+    }
+
+    /**
+     * Finds the User model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return User the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public static function get($id)
+    {
+        if (($model = self::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     /**
@@ -84,6 +163,11 @@ class User extends ActiveRecord implements IdentityInterface
     public static function findByUsername($username)
     {
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+    }
+
+    public static function findByEmail($email)
+    {
+        return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -155,16 +239,6 @@ class User extends ActiveRecord implements IdentityInterface
     public function validatePassword($password)
     {
         return Yii::$app->security->validatePassword($password, $this->password_hash);
-    }
-
-    /**
-     * Generates password hash from password and sets it to the model
-     *
-     * @param string $password
-     */
-    public function setPassword($password)
-    {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
     }
 
     /**

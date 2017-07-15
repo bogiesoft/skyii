@@ -1,8 +1,11 @@
 <?php
 
+use yii\widgets\ActiveForm;
+use common\helpers\Html;
+
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'Skyii';
 ?>
 <div class="site-index">
 

@@ -8,12 +8,13 @@ use yii\helpers\Html;
 $this->title = Yii::t('rbac-admin', 'Create Rule');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('rbac-admin', 'Rules'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['page_title'] = 'Rule';
+$this->params['page_type'] = 'create';
 ?>
-<div class="auth-item-create">
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?=
-    $this->render('_form', [
-        'model' => $model,
-    ]);
-    ?>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <?php echo $this->render('_form', ['model' => $model]); ?>
+        </div>
+    </div>
 </div>

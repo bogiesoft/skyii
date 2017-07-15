@@ -18,13 +18,15 @@
     RewriteCond %{REQUEST_URI} ^/skyii/(admin)
     RewriteRule ^.*$ backend/web/index.php [L]
 
-    RewriteCond %{REQUEST_URI} ^/skyii/(assets|css|images)
+    RewriteCond %{REQUEST_URI} ^/skyii/(assets|css|images|media)
     RewriteRule ^css/(.*)$ frontend/web/css/$1 [L]
     RewriteRule ^js/(.*)$ frontend/web/js/$1 [L]
     RewriteRule ^assets/(.*)$ frontend/web/assets/$1 [L]
     RewriteRule ^images/(.*)$ frontend/web/images/$1 [L]
+    RewriteRule ^media/(.*)$ media/$1 [L]
 
     RewriteCond %{REQUEST_URI} !^/skyii/(frontend|backend)/web/(assets|css|images)/
+    RewriteCond %{REQUEST_URI} !^/skyii/(media)/
     RewriteCond %{REQUEST_URI} !index.php
     RewriteCond %{REQUEST_FILENAME} !-f [OR]
     RewriteCond %{REQUEST_FILENAME} !-d

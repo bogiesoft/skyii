@@ -7,15 +7,23 @@ use yii\widgets\ActiveForm;
 /* @var $model modules\user\models\BizRule */
 /* @var $form ActiveForm */
 ?>
-<div class="auth-item-form">
-    <?php $form = ActiveForm::begin(); ?>
-    <?= $form->field($model, 'name')->textInput(['maxlength' => 64]) ?>
-    <?= $form->field($model, 'className')->textInput() ?>
-    <div class="form-group">
-        <?php
-        echo Html::submitButton($model->isNewRecord ? Yii::t('rbac-admin', 'Create') : Yii::t('rbac-admin', 'Update'), [
-            'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'])
-        ?>
+<?= Html::errorSummary($model)?>
+
+<?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+<div class="box-body">
+    <div class="row">
+        <div class="col-sm-6">
+            <?= $form->field($model, 'name')->textInput(['maxlength' => 64]) ?>
+            <?= $form->field($model, 'className')->textInput() ?>
+        </div>
+        <div class="col-sm-6">
+        </div>
     </div>
-    <?php ActiveForm::end(); ?>
 </div>
+<div class="box-footer">
+    <?php
+    echo Html::submitButton($model->isNewRecord ? Yii::t('rbac-admin', 'Create') : Yii::t('rbac-admin', 'Update'), [
+        'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'])
+    ?>
+</div>
+<?php ActiveForm::end(); ?>

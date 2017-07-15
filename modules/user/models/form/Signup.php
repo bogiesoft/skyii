@@ -2,8 +2,8 @@
 namespace modules\user\models\form;
 
 use Yii;
-use modules\user\models\User;
 use yii\base\Model;
+use modules\user\models\User;
 
 /**
  * Class Signup
@@ -11,8 +11,8 @@ use yii\base\Model;
  */
 class Signup extends Model
 {
-    public $username;
     public $email;
+    public $username;
     public $password;
 
     /**

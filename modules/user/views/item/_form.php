@@ -10,7 +10,7 @@ use modules\user\components\Configs;
 /* @var $this yii\web\View */
 /* @var $model modules\user\models\AuthItem */
 /* @var $form yii\widgets\ActiveForm */
-/* @var $context modules\user\components\ItemController */
+/* @var $context modules\user\controllers\AuthItemController */
 
 $context = $this->context;
 $labels = $context->labels();
@@ -26,25 +26,24 @@ JS;
 AutocompleteAsset::register($this);
 $this->registerJs($js);
 ?>
-
-<div class="auth-item-form">
-    <?php $form = ActiveForm::begin(['id' => 'item-form']); ?>
-    <div class="row">
-        <div class="col-sm-6">
-            <?= $form->field($model, 'name')->textInput(['maxlength' => 64]) ?>
-            <?= $form->field($model, 'description')->textarea(['rows' => 2]) ?>
-        </div>
-        <div class="col-sm-6">
-            <?= $form->field($model, 'ruleName')->textInput(['id' => 'rule_name']) ?>
-            <?= $form->field($model, 'data')->textarea(['rows' => 6]) ?>
+<?php $form = ActiveForm::begin(['id' => 'item-form']); ?>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <?= $form->field($model, 'name')->textInput(['maxlength' => 64]) ?>
+                <?= $form->field($model, 'description')->textarea(['rows' => 5]) ?>
+            </div>
+            <div class="col-sm-6">
+                <?= $form->field($model, 'ruleName')->textInput(['id' => 'rule_name']) ?>
+                <?= $form->field($model, 'data')->textarea(['rows' => 5]) ?>
+            </div>
         </div>
     </div>
-    <div class="form-group">
+    <div class="box-footer">
         <?php
         echo Html::submitButton($model->isNewRecord ? Yii::t('rbac-admin', 'Create') : Yii::t('rbac-admin', 'Update'), [
             'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
             'name' => 'submit-button'])
         ?>
     </div>
-    <?php ActiveForm::end(); ?>
-</div>
+<?php ActiveForm::end(); ?>

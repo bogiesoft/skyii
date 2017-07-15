@@ -3,20 +3,21 @@
 namespace modules\user\controllers;
 
 use Yii;
-use modules\user\models\form\Login;
-use modules\user\models\form\PasswordResetRequest;
-use modules\user\models\form\ResetPassword;
-use modules\user\models\form\Signup;
-use modules\user\models\form\ChangePassword;
-use modules\user\models\User;
-use modules\user\models\searchs\User as UserSearch;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
 use yii\base\UserException;
 use yii\mail\BaseMailer;
+use modules\user\models\form\Login;
+use modules\user\models\form\PasswordResetRequest;
+use modules\user\models\form\ResetPassword;
+use modules\user\models\form\ChangePassword;
+use modules\user\models\User;
+use modules\user\models\search\User as UserSearch;
+use common\models\LoginForm;
 
 /**
  * User controller
@@ -31,6 +32,31 @@ class UserController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => [
+                            'error',
+                            'login',
+                        ],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => [
+                            'logout',
+                            'activate',
+                            'index',
+                            'create',
+                            'view',
+                            'update',
+                            'delete'
+                        ],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -79,9 +105,38 @@ class UserController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionCreate()
+    {
+        $request = Yii::$app->request;
+        $model = new User;
+        if(Yii::$app->request->isPost) {
+            $model->load($request->post());
+            if ($model->validate()) {
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
+        }
+        return $this->render('create', ['model' => $model]);
+    }
+
+    public function actionUpdate($id)
+    {
+        $request = Yii::$app->request;
+
+        $model = User::get($id);
+        if ($model->load($request->post())) {
+            if ($model->saveData($id)) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        }
+
+        return $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -92,7 +147,7 @@ class UserController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-                'model' => $this->findModel($id),
+            'model' => User::get($id),
         ]);
     }
 
@@ -104,7 +159,7 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        User::get($id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -115,17 +170,18 @@ class UserController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout = '@backend/views/layouts/guest';
+        
         if (!Yii::$app->getUser()->isGuest) {
             return $this->goHome();
         }
 
         $model = new Login();
         if ($model->load(Yii::$app->getRequest()->post()) && $model->login()) {
-            return $this->goBack();
+            //return $this->goBack();
+            return $this->goHome();
         } else {
-            return $this->render('login', [
-                    'model' => $model,
-            ]);
+            return $this->render('login', ['model' => $model]);
         }
     }
 
@@ -153,9 +209,7 @@ class UserController extends Controller
             }
         }
 
-        return $this->render('signup', [
-                'model' => $model,
-        ]);
+        return $this->render('signup', ['model' => $model]);
     }
 
     /**
@@ -175,9 +229,7 @@ class UserController extends Controller
             }
         }
 
-        return $this->render('requestPasswordResetToken', [
-                'model' => $model,
-        ]);
+        return $this->render('requestPasswordResetToken', ['model' => $model]);
     }
 
     /**
@@ -198,9 +250,7 @@ class UserController extends Controller
             return $this->goHome();
         }
 
-        return $this->render('resetPassword', [
-                'model' => $model,
-        ]);
+        return $this->render('resetPassword', ['model' => $model]);
     }
 
     /**
@@ -214,9 +264,7 @@ class UserController extends Controller
             return $this->goHome();
         }
 
-        return $this->render('change-password', [
-                'model' => $model,
-        ]);
+        return $this->render('change-password', ['model' => $model]);
     }
 
     /**
@@ -229,7 +277,7 @@ class UserController extends Controller
     public function actionActivate($id)
     {
         /* @var $user User */
-        $user = $this->findModel($id);
+        $user = User::get($id);
         if ($user->status == User::STATUS_INACTIVE) {
             $user->status = User::STATUS_ACTIVE;
             if ($user->save()) {
@@ -240,21 +288,5 @@ class UserController extends Controller
             }
         }
         return $this->goHome();
-    }
-
-    /**
-     * Finds the User model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return User the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = User::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
     }
 }

@@ -1,0 +1,21 @@
+{
+    "name": "foqat/yii2-settings",
+    "description": "Settings for Yii2",
+    "type": "yii2-extension",
+    "keywords": ["yii2", "config", "settings"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pankaj Sanam",
+            "email": "pankaj.sanam@aryavratinfotech.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": ">=2.0.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "modules\\settings\\": ""
+        }
+    }
+}

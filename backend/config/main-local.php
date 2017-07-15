@@ -19,7 +19,23 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
-        'allowedIPs' => ['*']
+        'allowedIPs' => ['*'],
+        'generators' => [
+            'crud' => [
+                'class' => 'yii\gii\generators\crud\Generator',
+                // Using custom templates for CRUD generator in Gii tool.
+                'templates' => [
+                    // template name => path to template
+                    'admin-lte' => '@root/templates/crud/admin-lte',
+                ]
+            ],
+            'model' => [
+                'class' => 'yii\gii\generators\model\Generator',
+                'templates' => [
+                    'admin-lte' => '@root/templates/model/admin-lte/default',
+                ]
+            ]
+        ],
     ];
 }
 

@@ -5,3 +5,6 @@ Yii::setAlias('@backend', dirname(dirname(__DIR__)) . '/backend');
 Yii::setAlias('@console', dirname(dirname(__DIR__)) . '/console');
 Yii::setAlias('@api', dirname(dirname(__DIR__)) . '/api');
 Yii::setAlias('@modules', dirname(dirname(__DIR__)) . '/modules');
+Yii::setAlias('@media', dirname(dirname(__DIR__)) . '/media');
+Yii::setAlias('@vendor', dirname(dirname(__DIR__)) . '/vendor');
+Yii::setAlias('@root', dirname(dirname(__DIR__)));

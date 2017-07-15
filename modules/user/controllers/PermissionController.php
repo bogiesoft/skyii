@@ -2,14 +2,14 @@
 
 namespace modules\user\controllers;
 
-use modules\user\components\ItemController;
+use modules\user\controllers\AuthItemController;
 use yii\rbac\Item;
 
 /**
  * PermissionController implements the CRUD actions for AuthItem model.
  *
  */
-class PermissionController extends ItemController
+class PermissionController extends AuthItemController
 {
 
     /**

@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use modules\enquiry\models\Enquiry;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;

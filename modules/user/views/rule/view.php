@@ -10,6 +10,8 @@ use yii\widgets\DetailView;
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('rbac-admin', 'Rules'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['page_title'] = 'Rules';
+$this->params['page_type'] = 'view';
 ?>
 <div class="auth-item-view">
     <h1><?= Html::encode($this->title) ?></h1>

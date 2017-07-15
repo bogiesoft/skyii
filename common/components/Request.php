@@ -1,5 +1,8 @@
 <?php
+
 namespace common\components;
+
+use Yii;
 
 /**
  * This extension of the Request component can be used to replace parts of the 
@@ -20,6 +23,7 @@ namespace common\components;
  */
 class Request extends \yii\web\Request
 {
+    public $noCsrfRoutes = [];
     public $web;
     public $adminUrl;
 
@@ -51,5 +55,14 @@ class Request extends \yii\web\Request
         } else {
             return parent::resolvePathInfo();
         }
+    }
+
+    public function validateCsrfToken()
+    {
+        if($this->enableCsrfValidation && in_array(Yii::$app->getUrlManager()->parseRequest($this)[0], $this->noCsrfRoutes)){
+            return true;
+        }
+
+        return parent::validateCsrfToken();
     }
 }

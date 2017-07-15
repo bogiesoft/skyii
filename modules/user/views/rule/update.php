@@ -9,12 +9,13 @@ $this->title = Yii::t('rbac-admin', 'Update Rule') . ': ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('rbac-admin', 'Rules'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->name]];
 $this->params['breadcrumbs'][] = Yii::t('rbac-admin', 'Update');
+$this->params['page_title'] = 'Rules';
+$this->params['page_type'] = 'update';
 ?>
-<div class="auth-item-update">
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?=
-    $this->render('_form', [
-        'model' => $model,
-    ]);
-    ?>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <?php echo $this->render('_form', ['model' => $model]); ?>
+        </div>
+    </div>
 </div>

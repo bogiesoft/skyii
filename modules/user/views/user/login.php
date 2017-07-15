@@ -1,31 +1,39 @@
 <?php
-use yii\helpers\Html;
+
 use yii\bootstrap\ActiveForm;
+use common\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \modules\user\models\form\Login */
 
-$this->title = Yii::t('rbac-admin', 'Login');
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = Html::setTitle('Login');
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
-    <p>Please fill out the following fields to login:</p>
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
-                <?= $form->field($model, 'username') ?>
-                <?= $form->field($model, 'password')->passwordInput() ?>
-                <?= $form->field($model, 'rememberMe')->checkbox() ?>
-                <div style="color:#999;margin:1em 0">
-                    If you forgot your password you can <?= Html::a('reset it', ['user/request-password-reset']) ?>.
-                    For new user you can <?= Html::a('signup', ['user/signup']) ?>.
+<style>
+    .checkbox label { padding-left: 0; }
+</style>
+<div class="login-box">
+    <div class="login-logo">
+        <b>Travel</b>Price
+    </div>
+    <div class="login-box-body">
+        <p class="login-box-msg"></p>
+        <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+            <?= $form->field($model, 'email')->textInput(['maxlength' => 255, 'class' => 'form-control', 'placeholder' => 'Email']) ?>
+            <?= $form->field($model, 'password')->passwordInput(['class' => 'form-control', 'placeholder' => 'Password']) ?>
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="checkbox icheck">
+                        <?= $form->field($model, 'rememberMe')->checkbox() ?>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <?= Html::submitButton(Yii::t('rbac-admin', 'Login'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                <div class="col-xs-4">
+                    <?= Html::submitButton(Yii::t('rbac-admin', 'Login'), ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
                 </div>
-            <?php ActiveForm::end(); ?>
-        </div>
+            </div>
+        <?php ActiveForm::end(); ?>
+        <?= Html::a('I forgot my password', ['/user/request-password-reset']) ?>
+        <br>
+        <?= Html::a('Register a new membership', ['/user/signup'], ['class' => 'text-center']) ?>
     </div>
 </div>

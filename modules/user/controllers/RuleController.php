@@ -5,7 +5,7 @@ namespace modules\user\controllers;
 use Yii;
 use modules\user\models\BizRule;
 use yii\web\Controller;
-use modules\user\models\searchs\BizRule as BizRuleSearch;
+use modules\user\models\search\BizRule as BizRuleSearch;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use modules\user\components\Helper;

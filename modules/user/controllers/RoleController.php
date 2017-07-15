@@ -2,14 +2,14 @@
 
 namespace modules\user\controllers;
 
-use modules\user\components\ItemController;
 use yii\rbac\Item;
+use modules\user\controllers\AuthItemController;
 
 /**
- * RoleController implements the CRUD actions for AuthItem model.
- *
+ * Class RoleController
+ * @package modules\user\controllers
  */
-class RoleController extends ItemController
+class RoleController extends AuthItemController
 {
     /**
      * @inheritdoc
